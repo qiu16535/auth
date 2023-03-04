@@ -11,7 +11,7 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -40,6 +40,6 @@ app.use(function (err, req, res, next) {
 
 module.exports = app;
 
-// console.log("Start the node server......");
-// app.listen(3000);//3000ポートでローカルサーバーたつ
-// console.log("http://127.0.0.1:3000/");
+console.log('Start the node server......');
+app.listen(3000); //3000ポートでローカルサーバーたつ
+console.log('http://127.0.0.1:3000/');
