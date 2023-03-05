@@ -8,6 +8,10 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+var mysql = require('mysql2');
+const cors = require('cors');
+
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -39,6 +44,31 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
+
+//mysql接続
+const connection = mysql.createConnection({
+  host: 'localhost',
+  port: '3306',
+  user: 'root',
+  password: 'password',
+  database: 'mokumoku'
+});
+
+//SQLテーブル作成
+// connection.connect((err) => {
+//   if (err) {
+//     console.log('error connecting: ' + err.stack);
+//     return;
+//   }
+//   connection.query('CREATE TABLE IF NOT EXISTS mokumoku.info(UserName VARCHAR(20) NOT NULL, Password VARCHAR(20) NOT NULL, PostCode INT, Address VARCHAR(30))', 
+//   (err, result) =>  {
+//       if (err) throw err;
+//       console.log('テーブルが作成されました');
+//       console.log(result);
+//   });
+//     console.log('success');
+// });
+
 
 console.log('Start the node server......');
 app.listen(3000); //3000ポートでローカルサーバーたつ
